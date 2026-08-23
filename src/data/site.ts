@@ -36,12 +36,12 @@ export const site = {
 	contact: {
 		heading: "Let's talk about your piece",
 		body: "Whether it's a custom piece, alterations, or a capsule collection, I'm always interested in hearing about new projects. Let me know what you have in mind and your estimated timeline, and I will get back to you within two business days.",
-		email: 'hello@tailoredbyrose.com',
+		email: 'tailoredbyrose@gmail.com',
 		instagramHandle: '@rose.msalazar',
 		instagramUrl: 'https://instagram.com/rose.msalazar',
 		studioLine: 'Studio — New York, New York (by appointment)',
 		formEndpoint: 'https://api.web3forms.com/submit',
-		formAccessKey: 'd77d2f68-5187-4116-b1fd-d038edc36979',
+		formAccessKey: '7479dccb-6e17-49bb-b4fc-9e9035d0d720',
 		projectTypes: ['Custom piece', 'Alterations', 'Other'],
 	},
 	footer: {

@@ -21,7 +21,12 @@ import { site } from '../data/site';
 			</div>
 		</div>
 
-		<form id="contact-form" action={site.contact.formEndpoint} method="POST">
+		<form
+			id="contact-form"
+			action={site.contact.formEndpoint}
+			method="POST"
+			data-fallback-email={site.contact.email}
+		>
 			<input type="hidden" name="access_key" value={site.contact.formAccessKey} />
 			<input type="hidden" name="subject" value="New inquiry from tailoredbyrose.com" />
 			<input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
@@ -198,6 +203,10 @@ import { site } from '../data/site';
 
 		const status = document.getElementById('form-status');
 		const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+		const fallbackEmail = form.dataset.fallbackEmail ?? '';
+		const errorMessage = fallbackEmail
+			? `Something went wrong. Please email ${fallbackEmail} directly.`
+			: 'Something went wrong. Please try again in a moment.';
 
 		form.addEventListener('submit', async (e) => {
 			e.preventDefault();
@@ -215,10 +224,10 @@ import { site } from '../data/site';
 					if (status) status.textContent = "✦ Request sent — I'll be in touch shortly.";
 					form.reset();
 				} else {
-					if (status) status.textContent = 'Something went wrong. Please email hello@tailoredbyrose.com directly.';
+					if (status) status.textContent = errorMessage;
 				}
 			} catch {
-				if (status) status.textContent = 'Something went wrong. Please email hello@tailoredbyrose.com directly.';
+				if (status) status.textContent = errorMessage;
 			} finally {
 				if (submitBtn) submitBtn.disabled = false;
 			}
