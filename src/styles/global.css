@@ -25,7 +25,10 @@ html {
 html,
 body {
 	max-width: 100%;
-	overflow-x: hidden;
+	/* `clip` and not `hidden`: `overflow-x: hidden` makes these scroll
+	   containers, which silently breaks `position: sticky` on the header.
+	   `clip` cuts off horizontal overflow without that side effect. */
+	overflow-x: clip;
 }
 
 img {
