@@ -1,0 +1,45 @@
+---
+import { site } from '../data/site';
+---
+
+<header class="header">
+	<a href="#top" class="brand">{site.brand}</a>
+	<nav class="nav">
+		<a href="#work">Work</a>
+		<a href="#about">About</a>
+		<a href="#contact">Contact</a>
+	</nav>
+</header>
+
+<style>
+	.header {
+		position: sticky;
+		top: 0;
+		z-index: 20;
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 24px;
+		padding: 16px clamp(20px, 5vw, 40px);
+		flex-wrap: wrap;
+		background: rgba(244, 242, 239, 0.88);
+		backdrop-filter: blur(10px);
+		border-bottom: 1px solid var(--ink);
+	}
+
+	.brand {
+		font-family: var(--font-display);
+		font-size: 22px;
+		letter-spacing: 0.01em;
+	}
+
+	.nav {
+		display: flex;
+		flex-wrap: wrap;
+		gap: clamp(14px, 3vw, 28px);
+		font-family: var(--font-mono);
+		font-size: 11px;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+	}
+</style>

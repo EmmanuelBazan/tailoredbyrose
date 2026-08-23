@@ -1,0 +1,36 @@
+---
+import { site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+	<span class="brand">{site.brand}</span>
+	<span>{site.footer.line}</span>
+	<span>© {year}</span>
+</footer>
+
+<style>
+	.footer {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 24px;
+		flex-wrap: wrap;
+		padding: 24px clamp(20px, 5vw, 40px) 40px;
+		border-top: 1px solid var(--ink);
+		font-family: var(--font-mono);
+		font-size: 11px;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--muted);
+	}
+
+	.brand {
+		font-family: var(--font-display);
+		font-size: 18px;
+		letter-spacing: 0;
+		text-transform: none;
+		color: var(--ink);
+	}
+</style>

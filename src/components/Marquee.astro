@@ -1,0 +1,45 @@
+---
+import { site } from '../data/site';
+
+const text = site.marquee.repeat(3);
+---
+
+<div class="marquee-wrap">
+	<div class="marquee-track">
+		<span>{text}</span>
+		<span aria-hidden="true">{text}</span>
+	</div>
+</div>
+
+<style>
+	.marquee-wrap {
+		overflow: hidden;
+		border-top: 1px solid var(--ink);
+		border-bottom: 1px solid var(--ink);
+		margin-top: 40px;
+		background: var(--dark-bg);
+		color: var(--dark-ink);
+		padding: 13px 0;
+	}
+
+	.marquee-track {
+		display: flex;
+		width: max-content;
+		animation: tbr-marquee 34s linear infinite;
+		font-family: var(--font-mono);
+		font-size: 12px;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+	}
+
+	.marquee-track span {
+		padding-right: 28px;
+		white-space: nowrap;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.marquee-track {
+			animation: none;
+		}
+	}
+</style>

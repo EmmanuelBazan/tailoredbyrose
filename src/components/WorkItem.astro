@@ -1,0 +1,365 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	work: CollectionEntry<'work'>;
+	index: number;
+}
+
+const { work, index } = Astro.props;
+const { name, context, brand, piece, alterations, tags, images } = work.data;
+const flip = index % 2 === 0;
+const label = `Work ${String(index).padStart(2, '0')}`;
+const multi = images.length > 1;
+---
+
+<article class:list={['work-item', { flip }]}>
+	<div class="media">
+		<div class="frame" data-carousel={multi ? 'true' : undefined}>
+			{
+				images.map((img, i) => (
+					<Image
+						src={img.src}
+						alt={img.alt}
+						data-credit={img.credit}
+						class="carousel-img"
+						style={i === 0 ? undefined : 'opacity:0'}
+						widths={[400, 600, 900]}
+						sizes="(min-width: 701px) 50vw, 100vw"
+					/>
+				))
+			}
+			{
+				multi && (
+					<>
+						<button type="button" class="nav prev" aria-label="Previous image" data-action="prev">
+							←
+						</button>
+						<button type="button" class="nav next" aria-label="Next image" data-action="next">
+							→
+						</button>
+						<span class="counter" data-counter>
+							1 / {images.length}
+						</span>
+					</>
+				)
+			}
+		</div>
+		<div class="media-footer">
+			<span class="credit" data-credit-out>{images[0].credit}</span>
+			{
+				multi && (
+					<div class="dots" data-dots>
+						{images.map((_, i) => (
+							<button
+								type="button"
+								class:list={['dot', { active: i === 0 }]}
+								data-idx={i}
+								aria-label={`Image ${i + 1}`}
+							/>
+						))}
+					</div>
+				)
+			}
+		</div>
+	</div>
+
+	<div class="text-wrap">
+		<div class="header-block">
+			<div class="label-row">
+				<span>{label}</span><span class="rule"></span><span class="brand-tag">{brand}</span>
+			</div>
+			<h3>{name}</h3>
+			<p class="context">{context}</p>
+		</div>
+		<div class="fact-block">
+			<dl>
+				<dt>Piece</dt>
+				<dd>{piece}</dd>
+				<dt>Brand</dt>
+				<dd>{brand}</dd>
+				<dt>Work</dt>
+				<dd>{alterations}</dd>
+			</dl>
+			<div class="tags">
+				{tags.map((t) => <span>{t}</span>)}
+			</div>
+		</div>
+	</div>
+</article>
+
+<style>
+	.work-item {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: clamp(24px, 4vw, 48px);
+		padding: clamp(36px, 6vw, 56px) 0;
+		border-bottom: 1px solid var(--line);
+		align-items: center;
+	}
+
+	.work-item:last-of-type {
+		border-bottom: none;
+	}
+
+	@media (min-width: 701px) {
+		.work-item {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+	.media {
+		order: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.work-item.flip .media {
+		order: 2;
+	}
+
+	.text-wrap {
+		order: 1;
+	}
+
+	@media (max-width: 700px) {
+		.media {
+			order: 2 !important;
+		}
+		.text-wrap {
+			display: contents;
+		}
+		.header-block {
+			order: 1;
+		}
+		.fact-block {
+			order: 3;
+		}
+	}
+
+	.frame {
+		position: relative;
+		aspect-ratio: 4 / 5;
+		border: 1px solid var(--ink);
+		overflow: hidden;
+	}
+
+	.frame :global(img) {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 50% 35%;
+		display: block;
+		transition: opacity 900ms ease;
+	}
+
+	.nav {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 36px;
+		height: 36px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0;
+		border: 1px solid var(--ink);
+		background: rgba(244, 242, 239, 0.9);
+		color: var(--ink);
+		font-family: var(--font-mono);
+		font-size: 15px;
+		line-height: 1;
+		cursor: pointer;
+		transition:
+			background 200ms ease,
+			color 200ms ease;
+	}
+
+	.nav:hover {
+		background: var(--ink);
+		color: var(--bg);
+	}
+
+	.nav.prev {
+		left: 12px;
+	}
+	.nav.next {
+		right: 12px;
+	}
+
+	.counter {
+		position: absolute;
+		right: 12px;
+		bottom: 12px;
+		font-family: var(--font-mono);
+		font-size: 10px;
+		letter-spacing: 0.12em;
+		padding: 4px 7px;
+		background: rgba(20, 17, 15, 0.78);
+		color: var(--bg);
+	}
+
+	.media-footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+	}
+
+	.credit {
+		font-family: var(--font-mono);
+		font-size: 11px;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--muted);
+	}
+
+	.dots {
+		display: flex;
+		gap: 6px;
+		flex-shrink: 0;
+	}
+
+	.dot {
+		width: 24px;
+		height: 2px;
+		padding: 0;
+		border: 0;
+		cursor: pointer;
+		background: #c9c2ba;
+		transition: background 400ms ease;
+	}
+
+	.dot.active {
+		background: var(--accent);
+	}
+
+	.label-row {
+		display: flex;
+		gap: 14px;
+		align-items: center;
+		font-family: var(--font-mono);
+		font-size: 11px;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--accent);
+	}
+
+	.label-row .rule {
+		flex: 1;
+		height: 1px;
+		background: var(--accent);
+		opacity: 0.4;
+	}
+
+	.label-row .brand-tag {
+		color: var(--muted);
+	}
+
+	h3 {
+		margin: 16px 0 0;
+		font-family: var(--font-display);
+		font-weight: 400;
+		font-size: 40px;
+		line-height: 1.05;
+	}
+
+	.context {
+		margin: 10px 0 0;
+		font-family: var(--font-mono);
+		font-size: 12px;
+		letter-spacing: 0.06em;
+		color: var(--muted);
+	}
+
+	.fact-block dl {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 12px 22px;
+		margin: 24px 0 0;
+		border-top: 1px solid var(--line);
+		padding-top: 18px;
+		font-size: 15px;
+		line-height: 1.45;
+	}
+
+	.fact-block dt {
+		font-family: var(--font-mono);
+		font-size: 11px;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--muted);
+		padding-top: 2px;
+	}
+
+	.fact-block dd {
+		margin: 0;
+		color: var(--ink);
+	}
+
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin-top: 22px;
+		font-family: var(--font-mono);
+		font-size: 11px;
+		letter-spacing: 0.08em;
+	}
+
+	.tags span {
+		border: 1px solid var(--ink);
+		padding: 6px 11px;
+	}
+</style>
+
+<script>
+	function initCarousels() {
+		document.querySelectorAll<HTMLElement>('.frame[data-carousel]').forEach((frame) => {
+			if (frame.dataset.initialized) return;
+			frame.dataset.initialized = 'true';
+
+			const article = frame.closest('.work-item');
+			if (!article) return;
+
+			const images = Array.from(frame.querySelectorAll<HTMLImageElement>('img'));
+			const prevBtn = frame.querySelector<HTMLButtonElement>('[data-action="prev"]');
+			const nextBtn = frame.querySelector<HTMLButtonElement>('[data-action="next"]');
+			const counter = frame.querySelector<HTMLElement>('[data-counter]');
+			const creditOut = article.querySelector<HTMLElement>('[data-credit-out]');
+			const dots = Array.from(article.querySelectorAll<HTMLButtonElement>('[data-dots] .dot'));
+
+			let current = 0;
+
+			function render() {
+				images.forEach((img, i) => {
+					img.style.opacity = i === current ? '1' : '0';
+				});
+				if (counter) counter.textContent = `${current + 1} / ${images.length}`;
+				if (creditOut) creditOut.textContent = images[current].dataset.credit ?? '';
+				dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
+			}
+
+			function go(delta: number) {
+				current = (current + delta + images.length) % images.length;
+				render();
+			}
+
+			prevBtn?.addEventListener('click', () => go(-1));
+			nextBtn?.addEventListener('click', () => go(1));
+			dots.forEach((dot, i) =>
+				dot.addEventListener('click', () => {
+					current = i;
+					render();
+				}),
+			);
+		});
+	}
+
+	initCarousels();
+	document.addEventListener('astro:page-load', initCarousels);
+</script>

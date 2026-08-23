@@ -1,0 +1,230 @@
+---
+import { site } from '../data/site';
+---
+
+<section id="contact" class="contact">
+	<div class="grid">
+		<div>
+			<h2>{site.contact.heading}</h2>
+			<p class="body-copy">{site.contact.body}</p>
+			<div class="details">
+				<span>{site.contact.email}</span>
+				<a href={site.contact.instagramUrl} target="_blank" rel="noopener" class="instagram">
+					<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<rect x="2.5" y="2.5" width="19" height="19" rx="5"></rect>
+						<circle cx="12" cy="12" r="4.2"></circle>
+						<circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"></circle>
+					</svg>
+					<span>{site.contact.instagramHandle}</span>
+				</a>
+				<span>{site.contact.studioLine}</span>
+			</div>
+		</div>
+
+		<form id="contact-form" action={site.contact.formEndpoint} method="POST">
+			<input type="hidden" name="access_key" value={site.contact.formAccessKey} />
+			<input type="hidden" name="subject" value="New inquiry from tailoredbyrose.com" />
+			<input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+
+			<label>
+				<span class="eyebrow">Name</span>
+				<input name="name" required placeholder="Your name" />
+			</label>
+			<label>
+				<span class="eyebrow">Email</span>
+				<input name="email" type="email" required placeholder="you@email.com" />
+			</label>
+			<label>
+				<span class="eyebrow">Project type</span>
+				<select name="type">
+					{site.contact.projectTypes.map((t) => <option>{t}</option>)}
+				</select>
+			</label>
+			<label>
+				<span class="eyebrow">Preferred date</span>
+				<input name="date" type="date" />
+			</label>
+			<label class="full">
+				<span class="eyebrow">Tell me more</span>
+				<textarea name="message" rows="4" placeholder="Occasion, garment and references…"></textarea>
+			</label>
+			<div class="submit-row full">
+				<button type="submit">Send request</button>
+				<span class="status" id="form-status" role="status"></span>
+			</div>
+		</form>
+	</div>
+</section>
+
+<style>
+	.contact {
+		padding: clamp(52px, 8vw, 88px) clamp(20px, 5vw, 40px) 40px;
+	}
+
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+		gap: clamp(32px, 5vw, 64px);
+	}
+
+	h2 {
+		margin: 0;
+		font-family: var(--font-display);
+		font-weight: 400;
+		font-size: clamp(36px, 5vw, 68px);
+		line-height: 0.98;
+		letter-spacing: -0.01em;
+	}
+
+	.body-copy {
+		margin: 20px 0 0;
+		font-size: 17px;
+		line-height: 1.6;
+		max-width: 38ch;
+		color: #35302b;
+		text-wrap: pretty;
+	}
+
+	.details {
+		margin-top: 32px;
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		font-family: var(--font-mono);
+		font-size: 12px;
+		letter-spacing: 0.06em;
+		color: var(--muted);
+	}
+
+	.instagram {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		color: var(--muted);
+		text-decoration: none;
+	}
+
+	.instagram:hover {
+		color: var(--accent);
+	}
+
+	form {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+		gap: 22px;
+	}
+
+	label {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	label.full {
+		grid-column: 1 / -1;
+	}
+
+	input,
+	select {
+		border: 0;
+		border-bottom: 1px solid var(--ink);
+		background: transparent;
+		padding: 10px 2px;
+		font-size: 16px;
+		color: var(--ink);
+		outline: none;
+	}
+
+	input:focus,
+	select:focus {
+		border-bottom-color: var(--accent);
+	}
+
+	textarea {
+		border: 1px solid var(--ink);
+		background: transparent;
+		padding: 12px;
+		font-size: 16px;
+		color: var(--ink);
+		outline: none;
+		resize: vertical;
+	}
+
+	textarea:focus {
+		border-color: var(--accent);
+	}
+
+	.submit-row {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 14px 20px;
+	}
+
+	button[type='submit'] {
+		border: 1px solid var(--ink);
+		background: var(--ink);
+		color: var(--bg);
+		padding: 15px 32px;
+		font-family: var(--font-mono);
+		font-size: 12px;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		cursor: pointer;
+	}
+
+	button[type='submit']:hover {
+		background: var(--accent);
+		border-color: var(--accent);
+	}
+
+	button[type='submit']:disabled {
+		opacity: 0.6;
+		cursor: default;
+	}
+
+	.status {
+		font-family: var(--font-mono);
+		font-size: 12px;
+		color: var(--accent);
+	}
+</style>
+
+<script>
+	function initContactForm() {
+		const form = document.getElementById('contact-form') as HTMLFormElement | null;
+		if (!form || form.dataset.initialized) return;
+		form.dataset.initialized = 'true';
+
+		const status = document.getElementById('form-status');
+		const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+		form.addEventListener('submit', async (e) => {
+			e.preventDefault();
+			if (submitBtn) submitBtn.disabled = true;
+			if (status) status.textContent = 'Sending…';
+
+			try {
+				const res = await fetch(form.action, {
+					method: 'POST',
+					body: new FormData(form),
+					headers: { Accept: 'application/json' },
+				});
+				const data = await res.json();
+				if (data.success) {
+					if (status) status.textContent = "✦ Request sent — I'll be in touch shortly.";
+					form.reset();
+				} else {
+					if (status) status.textContent = 'Something went wrong. Please email hello@tailoredbyrose.com directly.';
+				}
+			} catch {
+				if (status) status.textContent = 'Something went wrong. Please email hello@tailoredbyrose.com directly.';
+			} finally {
+				if (submitBtn) submitBtn.disabled = false;
+			}
+		});
+	}
+
+	initContactForm();
+	document.addEventListener('astro:page-load', initContactForm);
+</script>
