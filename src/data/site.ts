@@ -41,8 +41,7 @@ export const site = {
 		instagramUrl: 'https://instagram.com/rose.msalazar',
 		studioLine: 'Studio — New York, New York (by appointment)',
 		formEndpoint: 'https://api.web3forms.com/submit',
-		// TODO: replace with the real Web3Forms access key once the account is created (see cuentas-y-costos.md).
-		formAccessKey: 'REPLACE_WITH_WEB3FORMS_ACCESS_KEY',
+		formAccessKey: 'd77d2f68-5187-4116-b1fd-d038edc36979',
 		projectTypes: ['Custom piece', 'Alterations', 'Other'],
 	},
 	footer: {

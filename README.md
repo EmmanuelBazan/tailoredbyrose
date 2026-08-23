@@ -29,8 +29,8 @@ repositorio está conectado a Cloudflare Pages).
 
 ## Pendiente antes de publicar
 
-- [ ] **Formulario de contacto:** crear la cuenta en [Web3Forms](https://web3forms.com/)
-      y reemplazar `formAccessKey` en `src/data/site.ts` con la access key real.
+- [x] **Formulario de contacto:** cuenta creada en Web3Forms, access key configurada
+      y probada — el correo llega correctamente.
 - [ ] **Agenda de citas (Cal.com):** aún sin confirmar por la clienta — no está
       implementada. Cuando se confirme, agregar el embed en la sección de contacto.
 - [ ] **Español:** la arquitectura de i18n ya está configurada en `astro.config.mjs`
