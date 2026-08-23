@@ -36,8 +36,11 @@ repositorio está conectado a Cloudflare Pages).
 - [ ] **Español:** la arquitectura de i18n ya está configurada en `astro.config.mjs`
       (`en` default, `es` con fallback a inglés), pero las páginas en español todavía
       no existen. Se agregan en la siguiente fase con `src/pages/es/index.astro`.
-- [ ] Conectar este repositorio a **Cloudflare Pages** (build command `npm run build`,
-      output directory `dist`).
+- [x] Conectado a **Cloudflare Workers** (build command `npm run build`, output
+      directory `dist`). El `wrangler.jsonc` en la raíz le dice explícitamente a
+      Cloudflare que esto es un sitio 100% estático — sin ese archivo, su
+      auto-configuración instala de más el adaptador SSR de Astro y las imágenes
+      responden 404 (`/_image` sin servidor que lo atienda).
 
 ## Estructura
 
