@@ -17,7 +17,7 @@ export const site = {
 		imageAlt: 'Tailoredbyrose campaign — denim suit at the stadium',
 	},
 	marquee:
-		'Tailoredbyrose • Made in New York • Bespoke tailoring • Cut & finished by hand • Brooklyn • ',
+		'Tailoredbyrose • Made in New York • Bespoke tailoring • Cut & finished by hand • ',
 	work: {
 		eyebrow: 'Selected work',
 		meta: 'Six pieces / 2023—2026',
