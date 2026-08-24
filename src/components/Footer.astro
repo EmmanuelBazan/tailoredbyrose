@@ -7,7 +7,10 @@ const year = new Date().getFullYear();
 <footer class="footer">
 	<span class="brand">{site.brand}</span>
 	<span>{site.footer.line}</span>
-	<span>© {year}</span>
+	<span class="right">
+		<a href="/privacy">Privacy</a>
+		<span>© {year}</span>
+	</span>
 </footer>
 
 <style>
@@ -24,6 +27,20 @@ const year = new Date().getFullYear();
 		letter-spacing: 0.12em;
 		text-transform: uppercase;
 		color: var(--muted);
+	}
+
+	.right {
+		display: flex;
+		align-items: baseline;
+		gap: 20px;
+	}
+
+	.right a {
+		color: var(--muted);
+	}
+
+	.right a:hover {
+		color: var(--accent);
 	}
 
 	.brand {
