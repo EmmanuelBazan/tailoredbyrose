@@ -21,7 +21,7 @@ export const site = {
 	work: {
 		eyebrow: 'Selected work',
 		meta: 'Six pieces / 2023—2026',
-		footnote: '“Client relations managed by Tailoredbyrose”',
+		footnote: '“Client relations managed by Tailoredbyrp”',
 	},
 	about: {
 		eyebrow: 'About',
