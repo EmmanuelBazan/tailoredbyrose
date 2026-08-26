@@ -15,6 +15,7 @@ export const site = {
 			'06  Misty Copeland',
 		],
 		imageAlt: 'Tailoredbyrose campaign — denim suit at the stadium',
+		caption: ['Custom piece for Yankee Stadium', 'Model — Bella Ballard'],
 	},
 	marquee:
 		'Tailoredbyrose • Made in New York • Bespoke tailoring • Cut & finished by hand • ',

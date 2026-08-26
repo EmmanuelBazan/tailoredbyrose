@@ -24,6 +24,10 @@ import { site } from '../data/site';
 	<div class="frame">
 		<Image src={heroImage} alt={site.hero.imageAlt} widths={[480, 768, 1200, 1600]} sizes="100vw" />
 	</div>
+
+	<div class="image-credits">
+		{site.hero.caption.map((c) => <span>{c}</span>)}
+	</div>
 </section>
 
 <style>
@@ -108,5 +112,19 @@ import { site } from '../data/site';
 		width: 100%;
 		height: auto;
 		display: block;
+	}
+
+	.image-credits {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 6px 20px;
+		margin-top: 10px;
+		font-family: var(--font-mono);
+		font-size: 11px;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--muted);
 	}
 </style>
