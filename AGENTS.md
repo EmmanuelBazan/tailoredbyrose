@@ -8,6 +8,10 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
+## Branches
+
+Branch names follow `<type>/<ID>-<Description>`, with the `TBR` prefix for the ID (e.g. `feature/TBR-0001-Agregar-hora-de-cita`).
+
 ## Documentation
 
 Full documentation: https://docs.astro.build
