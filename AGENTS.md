@@ -23,6 +23,8 @@ There are no unit tests.
 
 Branch names follow `<type>/<ID>-<Description>`, with the `TBR` prefix for the ID (e.g. `feature/TBR-0001-Agregar-hora-de-cita`).
 
+Merged branches get deleted, so the next ID can't be derived from existing branches. Last ID used: `TBR-0002`. Update it when creating a new branch.
+
 ## Documentation
 
 Full documentation: https://docs.astro.build
