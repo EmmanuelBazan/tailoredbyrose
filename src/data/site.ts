@@ -12,7 +12,7 @@ export const site = {
 			'03  Marcello Hernandez',
 			'04  Naomi Watts',
 			'05  Priyanka Chopra',
-			'06  Misty Copeland',
+			'06  Kelly Clarkson',
 		],
 		imageAlt: 'Tailoredbyrose campaign — denim suit at the stadium',
 		caption: ['Custom piece for Yankee Stadium', 'Model — Bella Ballard'],
